@@ -1,2 +1,14 @@
-module to create jenkins vm 
-passin script.sh to install jenkins during creation use of cloudinit
+module to create jenkins vm on azure vm
+create root module with main.tf ans script.sh
+in main.tf call this module 
+in script.sh add below
+
+#cloud-config
+package_upgrade: true
+runcmd:
+  - sudo apt install openjdk-11-jre -y
+  - curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+  -  echo 'deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/' | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
+  - sudo apt-get update && sudo apt-get install jenkins -y
+  - sudo service jenkins restart
+  - sudo ufw allow 8080
