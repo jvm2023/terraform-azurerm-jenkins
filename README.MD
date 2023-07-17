@@ -4,6 +4,7 @@ in main.tf call this module
 in script.sh add below
 
 #cloud-config
+
 package_upgrade: true
 runcmd:
   - sudo apt install openjdk-11-jre -y
